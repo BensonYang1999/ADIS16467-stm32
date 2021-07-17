@@ -57,6 +57,43 @@ void ADIS16467_Read_Temp(ADIS16467_t *device)
     device->Temperature = (int16_t)data * 0.1;
 }
 
+int8_t ADIS16467_Burst_Read(ADIS16467_t *device)
+{
+    HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 0);
+    int16_t parity = 0; //checksum
+    HAL_StatusTypeDef stat = HAL_OK;
+    uint16_t tmpRx = 0;
+    uint16_t tmpTx[10] = {0};
+    uint16_t data[10];
+    stat |= HAL_SPI_TransmitReceive(device->hspi, (uint8_t *)&Burst_Cmd, (uint8_t *)&tmpRx, 1, 0xff); //first 16bit is useless
+    if (stat != HAL_OK)
+        while (1)
+            ;
+    sb_delay(100);
+    stat |= HAL_SPI_TransmitReceive(device->hspi, (uint8_t *)&tmpTx, (uint8_t *)data, 10, 0xff); //receive data of 20 Bytes
+    if (stat != HAL_OK)
+        while (1)
+            ;
+    HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 1);
+    sb_delay(150);
+    for (uint8_t i = 0; i < 9 * 2; i++)
+    {
+        parity += data[i];
+    }
+    if (parity == data[9] && !stat)
+        return 0;
+    else
+        return -1;
+}
+
+// read data from register, recommend using continuous transfer
+/* 
+@parameter:
+    device  imu device data structure
+    addr    target register address
+    receive save data to this var
+    num     number of register to read
+*/
 int8_t ADI_Read_Reg(ADIS16467_t *device, uint8_t addr, uint16_t *receive, uint8_t num)
 {
     uint16_t Tx_tmp = 0, Rx_tmp = 0;
@@ -64,18 +101,25 @@ int8_t ADI_Read_Reg(ADIS16467_t *device, uint8_t addr, uint16_t *receive, uint8_
     //first frame only transmit
     Tx_tmp = addr << 8;
     Rx_tmp = ADI_flame_TandR(device, Tx_tmp);
-    for(uint8_t i=1; i<num; i++)
+    for (uint8_t i = 1; i < num; i++)
     {
         Tx_tmp = (addr + 2 * i) << 8;
         Rx_tmp = ADI_flame_TandR(device, Tx_tmp);
-        receive[i-1] = Rx_tmp;
+        receive[i - 1] = Rx_tmp;
     }
     //last frame only receive
     Tx_tmp = 0;
-    receive[num-1] = ADI_flame_TandR(device, Tx_tmp);
+    receive[num - 1] = ADI_flame_TandR(device, Tx_tmp);
 
     return 0;
 }
+
+/* 
+@parameter:
+    device  imu device data structure
+    addr    target register address
+    value   the data that you want to transfer
+*/
 int8_t ADI_Write_Reg(ADIS16467_t *device, uint8_t addr, uint8_t value)
 {
     addr |= 0x80; //写数据的掩码
@@ -83,6 +127,7 @@ int8_t ADI_Write_Reg(ADIS16467_t *device, uint8_t addr, uint8_t value)
     ADI_flame_TandR(device, Tx_tmp);
     return 0;
 }
+
 uint16_t ADI_flame_TandR(ADIS16467_t *device, uint16_t trans)
 {
     HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 0);

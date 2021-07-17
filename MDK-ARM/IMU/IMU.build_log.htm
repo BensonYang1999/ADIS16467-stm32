@@ -21,7 +21,7 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
 Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
-C:\Users\Benson\Desktop\STM32\IMU\MDK-ARM\IMU.uvprojx
+C:\Users\Benson\Desktop\STM32\IMU\ADIS16467-stm32\MDK-ARM\IMU.uvprojx
 Project File Date:  07/16/2021
 
 <h2>Output:</h2>
@@ -30,18 +30,19 @@ Build target 'IMU'
 compiling imu.c...
 ..\Core\Src\imu.c(57): warning:  #767-D: conversion from pointer to smaller integer
       device->Temperature = (int16_t)data * 0.1;
-..\Core\Src\imu.c(88): warning:  #188-D: enumerated type mixed with another type
+..\Core\Src\imu.c(62): warning:  #188-D: enumerated type mixed with another type
       HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 0);
-..\Core\Src\imu.c(97): warning:  #188-D: enumerated type mixed with another type
+..\Core\Src\imu.c(77): warning:  #188-D: enumerated type mixed with another type
       HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 1);
-..\Core\Src\imu.c(10): warning:  #177-D: variable "Burst_Cmd"  was declared but never referenced
-  static int16_t Burst_Cmd = 0x6800;
-..\Core\Src\imu.c: 4 warnings, 0 errors
-compiling main.c...
+..\Core\Src\imu.c(133): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 0);
+..\Core\Src\imu.c(142): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 1);
+..\Core\Src\imu.c: 5 warnings, 0 errors
 linking...
 Program Size: Code=5228 RO-data=440 RW-data=20 ZI-data=1116  
 FromELF: creating hex file...
-"IMU\IMU.axf" - 0 Error(s), 4 Warning(s).
+"IMU\IMU.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -65,7 +66,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
