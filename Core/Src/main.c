@@ -95,6 +95,12 @@ int main(void)
   imu.GPIO_PIN = SPI1_CS_Pin;
   imu.hspi = &hspi1;
   ADIS16467_Init(&imu);
+
+  while (ADIS16467_Check(&imu) == 0)
+  {
+    ADIS16467_Init(&imu);
+    HAL_Delay(1000);
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,7 +116,6 @@ int main(void)
     //printf("Acc of x, y, z: %f, %f, %f\n", imu.Ax, imu.Ay, imu.Az);
     //printf("Gyro of x, y, z: %f, %f, %f\n", imu.Gx, imu.Gy, imu.Gz);
     HAL_Delay(500);
-    
   }
   /* USER CODE END 3 */
 }

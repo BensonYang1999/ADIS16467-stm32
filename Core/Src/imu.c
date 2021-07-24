@@ -15,11 +15,20 @@ void ADIS16467_Init(ADIS16467_t *device)
     ADI_Write_Reg(device, GLOB_CMD_REG + 1, 0x80);
     HAL_Delay(400); // wait for reboot
 
-    ADI_Write_Reg(device, FILT_CTRL_REG, 0x03); //set Bartlett filter level
+    /*ADI_Write_Reg(device, FILT_CTRL_REG, 0x03); //set Bartlett filter level
     ADI_Write_Reg(device, FILT_CTRL_REG + 1, 0x00);
 
     ADI_Write_Reg(device, DEC_RATE_REG, 0x03); //set value of filter to 4
-    ADI_Write_Reg(device, DEC_RATE_REG + 1, 0x00);
+    ADI_Write_Reg(device, DEC_RATE_REG + 1, 0x00);*/
+}
+
+int ADIS16467_Check(ADIS16467_t *device)
+{
+    uint16_t data[1];
+    ADI_Read_Reg(device, PROD_ID_REG, data, 1); //check device ID
+    device->prodId = data[0];
+    if (data[0] == 0x4053) return 1;
+    else return 0;
 }
 
 void ADIS16467_Read_Accel(ADIS16467_t *device)
@@ -28,12 +37,15 @@ void ADIS16467_Read_Accel(ADIS16467_t *device)
 
     ADI_Read_Reg(device, X_ACCL_LOW_REG, data, 2);
     device->Ax = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]) * (0.00125 / (1 << 16));
+    device->Accel_X_RAW = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]);
 
     ADI_Read_Reg(device, Y_ACCL_LOW_REG, data, 2);
     device->Ay = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]) * (0.00125 / (1 << 16));
+    device->Accel_Y_RAW = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]);
 
     ADI_Read_Reg(device, Z_ACCL_LOW_REG, data, 2);
     device->Az = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]) * (0.00125 / (1 << 16));
+    device->Accel_Z_RAW = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]);
 }
 
 void ADIS16467_Read_Gyro(ADIS16467_t *device)
@@ -42,19 +54,22 @@ void ADIS16467_Read_Gyro(ADIS16467_t *device)
 
     ADI_Read_Reg(device, X_GYRO_LOW_REG, data, 2);
     device->Gx = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]) / 655360.0f;
+    device->Gyro_X_RAW = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]);
 
     ADI_Read_Reg(device, Y_GYRO_LOW_REG, data, 2);
     device->Gy = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]) / 655360.0f;
+    device->Gyro_Y_RAW = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]);
 
     ADI_Read_Reg(device, Z_GYRO_LOW_REG, data, 2);
     device->Gz = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]) / 655360.0f;
+    device->Gyro_Z_RAW = (int32_t)((data[1] << 16) & 0xFFFF0000 | data[0]);
 }
 
 void ADIS16467_Read_Temp(ADIS16467_t *device)
 {
     uint16_t data[1];
     ADI_Read_Reg(device, TEMP_OUT_REG, data, 1);
-    device->Temperature = (int16_t)data * 0.1;
+    device->Temperature = (int16_t)data[0] * 0.1;
 }
 
 int8_t ADIS16467_Burst_Read(ADIS16467_t *device)
@@ -99,11 +114,11 @@ int8_t ADI_Read_Reg(ADIS16467_t *device, uint8_t addr, uint16_t *receive, uint8_
     uint16_t Tx_tmp = 0, Rx_tmp = 0;
 
     //first frame only transmit
-    Tx_tmp = addr << 8;
+    Tx_tmp = (addr << 8) & 0xFF00;
     Rx_tmp = ADI_flame_TandR(device, Tx_tmp);
     for (uint8_t i = 1; i < num; i++)
     {
-        Tx_tmp = (addr + 2 * i) << 8;
+        Tx_tmp = ((addr + 2 * i) << 8) & 0xFF00;
         Rx_tmp = ADI_flame_TandR(device, Tx_tmp);
         receive[i - 1] = Rx_tmp;
     }
@@ -123,7 +138,7 @@ int8_t ADI_Read_Reg(ADIS16467_t *device, uint8_t addr, uint16_t *receive, uint8_
 int8_t ADI_Write_Reg(ADIS16467_t *device, uint8_t addr, uint8_t value)
 {
     addr |= 0x80; //写数据的掩码
-    uint16_t Tx_tmp = (addr << 8) | value;
+    uint16_t Tx_tmp = ((addr << 8) & 0xFF00) | value;
     ADI_flame_TandR(device, Tx_tmp);
     return 0;
 }

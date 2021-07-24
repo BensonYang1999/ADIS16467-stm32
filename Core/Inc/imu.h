@@ -60,21 +60,22 @@ typedef struct
     int32_t Accel_X_RAW;
     int32_t Accel_Y_RAW;
     int32_t Accel_Z_RAW;
-    double Ax;
-    double Ay;
-    double Az;
+    float Ax;
+    float Ay;
+    float Az;
 
     int32_t Gyro_X_RAW;
     int32_t Gyro_Y_RAW;
     int32_t Gyro_Z_RAW;
-    double Gx;
-    double Gy;
-    double Gz;
+    float Gx;
+    float Gy;
+    float Gz;
 
     float Temperature;
 } ADIS16467_t;
 
 void ADIS16467_Init(ADIS16467_t *device);
+int ADIS16467_Check(ADIS16467_t *device);
 void ADIS16467_Read_Accel(ADIS16467_t *device);
 void ADIS16467_Read_Gyro(ADIS16467_t *device);
 void ADIS16467_Read_Temp(ADIS16467_t *device);
