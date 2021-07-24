@@ -101,6 +101,7 @@ int main(void)
     ADIS16467_Init(&imu);
     HAL_Delay(1000);
   }
+  ADIS16467_DeviceInfo(&imu);
   /* USER CODE END 2 */
 
   /* Infinite loop */

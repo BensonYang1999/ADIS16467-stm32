@@ -25,10 +25,31 @@ void ADIS16467_Init(ADIS16467_t *device)
 int ADIS16467_Check(ADIS16467_t *device)
 {
     uint16_t data[1];
-    ADI_Read_Reg(device, PROD_ID_REG, data, 1); //check device ID
+    ADI_Read_Reg(device, PROD_ID_REG, data, 1); //read device ID
     device->prodId = data[0];
-    if (data[0] == 0x4053) return 1;
-    else return 0;
+    if (data[0] == 0x4053)
+        return 1;
+    else
+        return 0;
+}
+
+void ADIS16467_DeviceInfo(ADIS16467_t *device)
+{
+    uint16_t data[1];
+    ADI_Read_Reg(device, RANG_MDL_REG, data, 1); //read range model
+    device->rangeModel = data[0];
+
+    ADI_Read_Reg(device, FIRM_REV_REG, data, 1); //read firmware revision
+    device->firm_rev = data[0];
+
+    ADI_Read_Reg(device, FIRM_DM_REG, data, 1); //read firmware revision
+    device->firm_dm = data[0];
+
+    ADI_Read_Reg(device, FIRM_Y_REG, data, 1); //read firmware revision
+    device->firm_y = data[0];
+
+    ADI_Read_Reg(device, SERIAL_NUM_REG, data, 1); //read firmware revision
+    device->serial_num = data[0];
 }
 
 void ADIS16467_Read_Accel(ADIS16467_t *device)
