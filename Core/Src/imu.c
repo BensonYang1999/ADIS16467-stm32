@@ -112,14 +112,21 @@ int8_t ADIS16467_Burst_Read(ADIS16467_t *device)
             ;
     HAL_GPIO_WritePin(device->GPIOx, device->GPIO_PIN, 1);
     sb_delay(150);
-    for (uint8_t i = 0; i < 9 * 2; i++)
-    {
-        parity += data[i];
-    }
-    if (parity == data[9] && !stat)
+    for (uint8_t i = 0; i < 9; i++)
+        parity += ((data[i] >> 8) & 0x00FF) + (data[i] & 0x00FF);
+    if (parity != data[9])
         return 0;
-    else
-        return -1;
+    
+    //save data
+    device->Ax = (int16_t)data[4] * 0.00125;
+    device->Ay = (int16_t)data[5] * 0.00125;
+    device->Az = (int16_t)data[6] * 0.00125;
+    device->Gx = (int16_t)data[1] / 40;
+    device->Gy = (int16_t)data[2] / 40;
+    device->Gz = (int16_t)data[3] / 40;
+    device->Temperature = (int16_t)data[7] * 0.1;
+    device->status = data[0];
+    return 1;
 }
 
 // read data from register, recommend using continuous transfer

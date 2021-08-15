@@ -33,7 +33,7 @@ I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4x
 I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x60F02CBB)
 I (../Core/Inc/spi.h)(0x60F07B49)
 I (../Core/Inc/gpio.h)(0x60F07B49)
-I (../Core/Inc/imu.h)(0x60FC3E05)
+I (../Core/Inc/imu.h)(0x6118AF65)
 F (../Core/Src/gpio.c)(0x60F07B49)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Include-I.\RTE\_IMU-IC:\Users\Benson\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Benson\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o imu\gpio.o --omf_browse imu\gpio.crf --depend imu\gpio.d)
 I (../Core/Inc/gpio.h)(0x60F07B49)
 I (../Core/Inc/main.h)(0x60F07B4A)
@@ -157,8 +157,8 @@ I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4x
 I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x60F02CBB)
 I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x60F02CBB)
 I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x60F02CBB)
-F (..\Core\Src\imu.c)(0x60FC3E07)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Include-I.\RTE\_IMU-IC:\Users\Benson\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Benson\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o imu\imu.o --omf_browse imu\imu.crf --depend imu\imu.d)
-I (../Core/Inc/imu.h)(0x60FC3E05)
+F (..\Core\Src\imu.c)(0x6118AFCF)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Include-I.\RTE\_IMU-IC:\Users\Benson\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Benson\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o imu\imu.o --omf_browse imu\imu.crf --depend imu\imu.d)
+I (../Core/Inc/imu.h)(0x6118AF65)
 I (../Core/Inc/spi.h)(0x60F07B49)
 I (../Core/Inc/main.h)(0x60F07B4A)
 I (C:/Users/Benson/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x60F02CBB)

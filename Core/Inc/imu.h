@@ -54,6 +54,7 @@ typedef struct
     GPIO_TypeDef *GPIOx;     //CS pin GPIOx
     uint16_t GPIO_PIN;       //CS pin number
 
+    uint16_t status;
     uint16_t rangeModel;
     uint16_t prodId;
     uint16_t firm_rev;

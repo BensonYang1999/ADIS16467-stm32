@@ -111,9 +111,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    ADIS16467_Read_Accel(&imu);
+
+    //single read #### not usable temporarily
+    /*ADIS16467_Read_Accel(&imu);
     ADIS16467_Read_Gyro(&imu);
-    ADIS16467_Read_Temp(&imu);
+    ADIS16467_Read_Temp(&imu);*/
+
+    //burst read
+    ADIS16467_Burst_Read(&imu);
+    
     //printf("Acc of x, y, z: %f, %f, %f\n", imu.Ax, imu.Ay, imu.Az);
     //printf("Gyro of x, y, z: %f, %f, %f\n", imu.Gx, imu.Gy, imu.Gz);
     HAL_Delay(500);
